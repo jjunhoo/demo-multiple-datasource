@@ -1,9 +1,30 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/coupon_example
-    username: root
-    password: 1234
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.example.demomultipledatasource.model
+  oracle:
+    datasource:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      #TODO
+      jdbc-url: jdbc:log4jdbc:oracle:thin:@localhost:1538:testdb
+      username: test
+      password: test
+      type: com.zaxxer.hikari.HikariDataSource
+      hikari:
+        minimum-idle: 2
+        maximum-pool-size: 10
+        connection-test-query: SELECT 1 FROM DUAL
+      mybatis:
+        config: classpath:mybatis/config/mybatis-config.xml
+        mapper-locations: classpath:mapper/oracle/*Mapper.xml
+  postgres:
+    datasource:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      #TDOO
+      jdbc-url: jdbc:log4jdbc:postgresql://localhost:5475/testdb?useUnicode=true&characterEncoding=utf8
+      username: test
+      password: test
+      type: com.zaxxer.hikari.HikariDataSource
+      hikari:
+        minimum-idle: 2
+        maximum-pool-size: 10
+      mybatis:
+        config: classpath:mybatis/config/mybatis-config.xml
+        mapper-locations: classpath:mapper/postgres/*Mapper.xml
